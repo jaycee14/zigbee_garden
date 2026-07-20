@@ -1,0 +1,61 @@
+
+
+Process
+
+Following 
+https://www.zigbee2mqtt.io/guide/installation/01_linux.html
+
+installed mosquito using instructions from
+https://randomnerdtutorials.com/how-to-install-mosquitto-broker-on-raspberry-pi/
+
+installed podman on rpi
+
+connecting zigbee device
+running 
+ls -l /dev/serial/by-id
+gives
+usb-1a86_USB_Serial-if00-port0 -> ../../ttyUSB0
+
+podman run \
+   --name zigbee2mqtt \
+   --restart=unless-stopped \
+   --device=/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyUSB0 \
+   -p 8080:8080 \
+   -v /home/jjc/Projects/garden_zigbee/data:/app/data \
+   -v /run/udev:/run/udev:ro \
+   -e TZ=Europe/London \
+   --group-add keep-groups \
+   ghcr.io/koenkk/zigbee2mqtt
+
+
+added jjc to dialout group & tty
+sudo usermod -a -G dialout jjc
+sudo usermod -a -G uucp jjc
+sudo usermod -a -G tty jjc
+
+looked up zigbee adaptor ZG808-Z, found post saying use zstack adaptor
+
+--testing access to the port
+test -w /dev/ttyUSB0 && echo success || echo failure
+
+--mosquito log
+sudo cat /var/log/mosquitto/mosquitto.log
+
+--mosquito conf file
+sudo nano /etc/mosquitto/mosquitto.conf
+
+sudo systemctl restart mosquitto
+
+-- connect to sensor 1 feed
+mosquitto_sub -d -t zigbee2mqtt/soilSensor1
+
+
+
+-- docker mosquitto for testing
+podman run -it -p 1883:1883 eclipse-mosquitto:alpine
+
+-- run the app
+python app.py
+
+-- run the simulator
+python simulator.py
