@@ -23,10 +23,21 @@ def on_connect(client, userdata, flags, rc, properties=None):
 
 def on_message(client, userdata, msg):
 
+    sensor = msg.topic[-1]
+
     payload = json.loads(msg.payload.decode())
 
-    sensor = payload["sensor"]
-    moisture = payload["moisture"]
+#     {
+#     "battery": 40,
+#     "battery_state": "medium",
+#     "linkquality": 116,
+#     "soil_moisture": 0,
+#     "temperature": 27.5,
+#     "temperature_unit": "fahrenheit"
+# }
+
+    # sensor = payload["sensor"]
+    moisture = payload["soil_moisture"]
     temperature = payload["temperature"]
     battery = payload["battery"]
 
