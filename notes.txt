@@ -60,3 +60,12 @@ python app.py
 
 -- run the simulator
 python simulator.py
+
+{
+    "battery": 40,
+    "battery_state": "medium",
+    "linkquality": 116,
+    "soil_moisture": 0,
+    "temperature": 27.5,
+    "temperature_unit": "fahrenheit"
+}
