@@ -112,5 +112,5 @@ ui.timer(1.0, refresh)
 initialise_sensor_state()
 initialise_chart()
 mqtt_start()
-ui.run()
+ui.run(port=8000)
 
