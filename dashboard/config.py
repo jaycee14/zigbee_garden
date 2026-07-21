@@ -2,9 +2,9 @@ MQTT_HOST = "localhost"
 MQTT_PORT = 1883
 
 MQTT_TOPICS = [
-    "garden/sensor1",
-    "garden/sensor2",
-    "garden/sensor3",
+    "zigbee2mqtt/sensor1",
+    "zigbee2mqtt/sensor2",
+    "zigbee2mqtt/sensor3",
 ]
 
 DATABASE_URL = "sqlite:///sensors.db"

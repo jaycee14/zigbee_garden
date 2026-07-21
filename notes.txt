@@ -21,7 +21,7 @@ podman run \
    --restart=unless-stopped \
    --device=/dev/serial/by-id/usb-1a86_USB_Serial-if00-port0:/dev/ttyUSB0 \
    -p 8080:8080 \
-   -v /home/jjc/Projects/garden_zigbee/data:/app/data \
+   -v /home/jjc/Projects/zigbee_garden/data:/app/data \
    -v /run/udev:/run/udev:ro \
    -e TZ=Europe/London \
    --group-add keep-groups \
@@ -49,7 +49,8 @@ sudo systemctl restart mosquitto
 -- connect to sensor 1 feed
 mosquitto_sub -d -t zigbee2mqtt/soilSensor1
 
-
+-- podman settings for internal network set
+mqtt://host.containers.internal:1883
 
 -- docker mosquitto for testing
 podman run -it -p 1883:1883 eclipse-mosquitto:alpine
