@@ -23,7 +23,7 @@ def on_connect(client, userdata, flags, rc, properties=None):
 
 def on_message(client, userdata, msg):
 
-    sensor = msg.topic[-1]
+    sensor = int(msg.topic[-1])
 
     payload = json.loads(msg.payload.decode())
 
@@ -48,7 +48,7 @@ def on_message(client, userdata, msg):
         battery
     )
 
-    enqueue_reading(payload)
+    enqueue_reading({'sensor':sensor, 'moisture':moisture, 'temperature':temperature, 'battery':battery})
 
 
 def mqtt_start():
